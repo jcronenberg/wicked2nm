@@ -18,6 +18,7 @@ method=manual
 [ipv6]
 addr-gen-mode=default
 address1=2001:db8:1::1/64
+ip6-privacy=1
 method=manual
 
 [proxy]

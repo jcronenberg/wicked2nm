@@ -10,8 +10,10 @@ serde = { version = "1.0.152", features = ["derive"] }
 serde_json = "1.0.91"
 serde_yaml = "0.9.17"
 quick-xml = { version = "0.28.2", features = ["serialize"] }
-agama-lib = { git = "https://github.com/agama-project/agama" }
-agama-server = { git = "https://github.com/agama-project/agama" }
+agama-lib = { git = "https://github.com/jcronenberg/agama", branch = "network_dhcp_settings" }
+agama-server = { git = "https://github.com/jcronenberg/agama", branch = "network_dhcp_settings" }
+# agama-lib = { path = "../agama/rust/agama-lib/" }
+# agama-server = { path = "../agama/rust/agama-server/" }
 regex = "1.9.5"
 cidr = { version = "0.2.2", features = ["serde"] }
 clap = { version = "4.1.4", features = ["derive", "wrap_help", "env"] }

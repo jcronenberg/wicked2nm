@@ -24,6 +24,7 @@ method=manual
 [ipv6]
 addr-gen-mode=default
 ignore-auto-dns=true
+ip6-privacy=1
 method=auto
 
 [proxy]

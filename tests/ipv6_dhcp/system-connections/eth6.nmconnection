@@ -13,6 +13,9 @@ method=disabled
 
 [ipv6]
 addr-gen-mode=default
+dhcp-hostname=dev3
+dhcp-send-release=0
+ip6-privacy=1
 method=auto
 
 [proxy]

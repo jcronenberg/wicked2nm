@@ -15,6 +15,7 @@ method=disabled
 addr-gen-mode=default
 address1=2001:db8:0:1::5/64
 address2=2001:db8:0:2::5/64
+ip6-privacy=1
 method=manual
 
 [proxy]

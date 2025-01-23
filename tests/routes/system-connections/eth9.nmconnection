@@ -22,6 +22,7 @@ route6=0.0.0.0/0,192.168.102.1,1
 [ipv6]
 addr-gen-mode=default
 address1=2001:db8:1::5/64
+ip6-privacy=1
 method=manual
 route1=::/0,2001:db8:1::1
 route2=2001:db8:1::/64,2001:db8:1::1,1
