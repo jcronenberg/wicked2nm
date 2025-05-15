@@ -9,9 +9,6 @@ hidden=true
 mode=infrastructure
 ssid=open_1
 
-[wifi-security]
-key-mgmt=none
-
 [match]
 
 [ipv4]

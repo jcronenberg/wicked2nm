@@ -10,6 +10,7 @@ interface-name=eth9
 
 [ipv4]
 dhcp-send-hostname-deprecated=false
+dhcp-send-hostname=0
 dhcp-send-release=1
 ignore-auto-dns=true
 method=auto
@@ -17,6 +18,7 @@ method=auto
 [ipv6]
 addr-gen-mode=default
 dhcp-send-hostname-deprecated=false
+dhcp-send-hostname=0
 dhcp-send-release=1
 ignore-auto-dns=true
 ip6-privacy=1

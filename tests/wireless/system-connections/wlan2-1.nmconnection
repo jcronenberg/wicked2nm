@@ -8,9 +8,6 @@ interface-name=wlan2
 mode=infrastructure
 ssid=open_2
 
-[wifi-security]
-key-mgmt=none
-
 [match]
 
 [ipv4]

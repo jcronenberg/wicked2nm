@@ -1,4 +1,4 @@
-use agama_server::network::model;
+use agama_network::model;
 use serde::{Deserialize, Serialize};
 use serde_with::skip_serializing_none;
 
