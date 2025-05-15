@@ -1,5 +1,5 @@
-use agama_lib::network::types::BondMode as AgamaBondMode;
-use agama_server::network::model::{self};
+use agama_network::model::{self};
+use agama_network::types::BondMode as AgamaBondMode;
 use serde::{Deserialize, Deserializer, Serialize};
 use serde_with::{skip_serializing_none, DeserializeFromStr, SerializeDisplay};
 use std::collections::HashMap;

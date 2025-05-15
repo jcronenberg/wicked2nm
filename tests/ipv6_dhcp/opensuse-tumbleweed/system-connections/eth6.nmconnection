@@ -14,6 +14,7 @@ method=disabled
 
 [ipv6]
 addr-gen-mode=default
+dhcp-send-hostname=1
 dhcp-send-release=0
 ignore-auto-dns=true
 ip6-privacy=1

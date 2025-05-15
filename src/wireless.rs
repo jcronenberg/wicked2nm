@@ -1,6 +1,6 @@
 use crate::MIGRATION_SETTINGS;
-use agama_lib::network::types::SSID;
-use agama_server::network::model::{self, WEPAuthAlg, WEPKeyType, WEPSecurity};
+use agama_network::model::{self, WEPAuthAlg, WEPKeyType, WEPSecurity};
+use agama_network::types::SSID;
 use anyhow::anyhow;
 use macaddr::MacAddr6;
 use serde::{Deserialize, Deserializer, Serialize};

@@ -1,4 +1,4 @@
-use agama_server::network::model::{self, InfinibandConfig, InfinibandTransportMode};
+use agama_network::model::{self, InfinibandConfig, InfinibandTransportMode};
 use serde::{Deserialize, Deserializer, Serialize};
 use serde_with::skip_serializing_none;
 use std::str::FromStr;
