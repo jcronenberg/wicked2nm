@@ -13,6 +13,18 @@ NO_WICKED=${NO_WICKED:-0}
 LOG_LEVEL=1
 TEST_STDIN=true
 
+source /etc/os-release
+OS_DIR=
+if [[ "$ID" == "opensuse-leap" ]]; then
+    OS_DIR="$ID-$VERSION_ID"
+elif [[ "$ID" == "opensuse-tumbleweed" ]]; then
+    OS_DIR="$ID"
+else
+    echo -e "${RED}Unsupported OS${NC}"
+    exit 1
+fi
+RES_DIR="$OS_DIR/system-connections"
+
 error_msg() {
   log_error "Error for test $1:$2"
 }
@@ -49,7 +61,7 @@ print_help()
 POSITIONAL_ARGS=()
 
 while [[ $# -gt 0 ]]; do
-  opt=$1; 
+  opt=$1;
   shift;
   case $opt in
     -v|--verbose)
@@ -177,9 +189,9 @@ for test_dir in ${TEST_DIRS}; do
         echo -e "${GREEN}Migration for $test_dir failed as expected${NC}"
     fi
 
-    if [ -d "./system-connections" ]; then
-      for cmp_file in $(ls -1 ./system-connections/); do
-          a="./system-connections/$cmp_file"
+    if [ -d "./$RES_DIR" ]; then
+      for cmp_file in $(ls -1 ./$RES_DIR/); do
+          a="./$RES_DIR/$cmp_file"
           b="/etc/NetworkManager/system-connections/${cmp_file}"
           diff_cmd="diff --unified=0 --color=always -I uuid -I timestamp $a $b"
           log_verbose "RUN: $diff_cmd"
