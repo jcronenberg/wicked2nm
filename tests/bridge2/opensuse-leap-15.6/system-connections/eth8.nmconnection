@@ -1,0 +1,13 @@
+[connection]
+id=eth8
+uuid=fc34b35b-05bd-4623-ab2b-61daf0310b13
+type=ethernet
+interface-name=eth8
+master=br99
+slave-type=bridge
+
+[ethernet]
+
+[bridge-port]
+
+[match]

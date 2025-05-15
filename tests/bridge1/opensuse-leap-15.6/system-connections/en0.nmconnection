@@ -1,0 +1,15 @@
+[connection]
+id=en0
+uuid=621ab1b7-a04c-41a3-9b4a-3899b66d182a
+type=ethernet
+interface-name=en0
+master=br0
+slave-type=bridge
+
+[ethernet]
+
+[bridge-port]
+path-cost=2
+priority=9
+
+[match]
