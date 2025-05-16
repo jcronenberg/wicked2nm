@@ -1,0 +1,23 @@
+name: Github Actions
+on: [push, pull_request]
+
+concurrency:
+  group: ${{ github.workflow }}|${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  rust-checks:
+    name: Rust checks
+    uses: ./.github/workflows/rust-checks.yml
+
+  integration-tests:
+    name: Integration tests
+    uses: ./.github/workflows/integration-tests.yml
+
+  obs-build:
+    # do not run in forks and only on push to master branch
+    if: github.repository == 'openSUSE/wicked2nm' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+    name: OBS submit
+    needs: [rust-checks, integration-tests]
+    uses: ./.github/workflows/obs-build.yml
+    secrets: inherit
