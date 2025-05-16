@@ -1,0 +1,25 @@
+name: "wicked2nm integration tests"
+
+on: workflow_call
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Git Checkout
+      uses: actions/checkout@v3
+    - uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: wicked2nm-${{ hashFiles('Cargo.lock') }}
+    - name: Start container
+      run: podman run --detach --name wicked2nm -e CARGO_TERM_COLOR=always -v .:/checkout registry.opensuse.org/home/jcronenberg/github-ci/containers_tumbleweed/opensuse/wicked2nm-tumbleweed:latest
+    - name: Build wicked2nm
+      run: podman exec wicked2nm bash -c "cd /checkout/ && cargo build"
+    - name: Run integration tests
+      run: podman exec wicked2nm bash -c "/checkout/tests/test.sh"
