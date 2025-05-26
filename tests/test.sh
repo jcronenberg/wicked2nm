@@ -12,6 +12,7 @@ NO_CLEANUP=${NO_CLEANUP:-0}
 NO_WICKED=${NO_WICKED:-0}
 LOG_LEVEL=1
 TEST_STDIN=true
+NM_VERSION=$(NetworkManager --version)
 
 error_msg() {
   log_error "Error for test $1:$2"
@@ -29,6 +30,10 @@ nm_cleanup() {
     for con in $(ls /etc/NetworkManager/system-connections/ | sed 's/\.nmconnection//'); do
         nmcli con delete $con
     done
+}
+
+nm_version_greater_equal() {
+    printf '%s\n%s\n' "$1" "$NM_VERSION" | sort --check=quiet --version-sort
 }
 
 print_help()
@@ -127,10 +132,21 @@ for test_dir in ${TEST_DIRS}; do
     export W2NM_WITHOUT_NETCONFIG=true
     export W2NM_NETCONFIG_PATH=
     export W2NM_NETCONFIG_DHCP_PATH=
+    NM_VERSION_lt=
+    NM_VERSION_ge=
     TEST_EXPECT_FAIL=false
     if [ -f  ./ENV ]; then
        set -a && source ./ENV
        set +a
+    fi
+
+    if [ ! -z "$NM_VERSION_ge" ] && ! nm_version_greater_equal "$NM_VERSION_ge"; then
+        echo "NM version too low, skipping..."
+        continue
+    fi
+    if [ ! -z "$NM_VERSION_lt" ] && nm_version_greater_equal "$NM_VERSION_lt"; then
+        echo "NM version too high, skipping..."
+        continue
     fi
 
     if ls -1 ./netconfig/ifcfg-* >/dev/null 2>&1 && [ $NO_WICKED -eq 0 ]; then
