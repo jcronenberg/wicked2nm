@@ -1,0 +1,61 @@
+<interface origin="compat:suse:/tests/bridge4/netconfig/ifcfg-br99">
+  <name>br99</name>
+  <control>
+    <mode>boot</mode>
+  </control>
+  <bridge>
+    <stp>false</stp>
+    <forward-delay>0.00</forward-delay>
+    <address>3c:fd:fe:a5:be:cc</address>
+  </bridge>
+  <link/>
+  <ipv4>
+    <enabled>true</enabled>
+  </ipv4>
+  <ipv4:static>
+    <address>
+      <local>10.161.72.11/24</local>
+    </address>
+  </ipv4:static>
+  <ipv6>
+    <enabled>true</enabled>
+    <privacy>prefer-public</privacy>
+  </ipv6>
+  <ipv6:static>
+    <address>
+      <local>2620:113:80c0:8200::11/64</local>
+    </address>
+  </ipv6:static>
+</interface>
+<interface origin="compat:suse:/tests/bridge4/netconfig/ifcfg-br99">
+  <name>eth8</name>
+  <control>
+    <mode>hotplug</mode>
+  </control>
+  <link>
+    <master>br99</master>
+    <port type="bridge"/>
+  </link>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>
+<interface origin="compat:suse:/tests/bridge4/netconfig/ifcfg-br99">
+  <name>eth9</name>
+  <control>
+    <mode>hotplug</mode>
+  </control>
+  <link>
+    <master>br99</master>
+    <port type="bridge"/>
+  </link>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>

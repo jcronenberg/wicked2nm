@@ -1,0 +1,11 @@
+[connection]
+id=sfp2
+uuid=2a076505-fbc4-4edf-a934-8fb0e835a9ac
+type=ethernet
+interface-name=sfp2
+master=bond0
+slave-type=bond
+
+[ethernet]
+
+[match]

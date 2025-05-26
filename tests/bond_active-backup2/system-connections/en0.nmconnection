@@ -1,0 +1,11 @@
+[connection]
+id=en0
+uuid=38d979e6-aa0e-4bae-8cff-a6dda281d0c7
+type=ethernet
+interface-name=en0
+master=bond0
+slave-type=bond
+
+[ethernet]
+
+[match]

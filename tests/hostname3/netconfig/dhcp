@@ -1,0 +1,2 @@
+DHCLIENT_HOSTNAME_OPTION=test-hostname-v4
+DHCLIENT6_HOSTNAME_OPTION=test-hostname-v6

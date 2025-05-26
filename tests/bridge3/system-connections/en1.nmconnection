@@ -1,0 +1,14 @@
+[connection]
+id=en1
+uuid=f760dace-c275-4983-ab36-51c8e9642dfc
+type=ethernet
+interface-name=en1
+master=br0
+slave-type=bridge
+
+[ethernet]
+
+[bridge-port]
+priority=0
+
+[match]

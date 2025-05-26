@@ -1,0 +1,65 @@
+<interface origin="compat:suse:/tests/bridge3/netconfig/ifcfg-br0">
+  <name>br0</name>
+  <control>
+    <mode>boot</mode>
+  </control>
+  <bridge>
+    <stp>false</stp>
+    <priority>5</priority>
+    <forward-delay>3.20</forward-delay>
+    <aging-time>1.20</aging-time>
+    <hello-time>1.10</hello-time>
+    <max-age>40.30</max-age>
+  </bridge>
+  <link/>
+  <ipv4>
+    <enabled>true</enabled>
+    <arp-verify>true</arp-verify>
+  </ipv4>
+  <ipv4:static>
+    <address>
+      <local>10.0.0.1/24</local>
+    </address>
+  </ipv4:static>
+  <ipv6>
+    <enabled>true</enabled>
+    <privacy>prefer-public</privacy>
+  </ipv6>
+</interface>
+<interface origin="compat:suse:/tests/bridge3/netconfig/ifcfg-br0">
+  <name>en0</name>
+  <control>
+    <mode>hotplug</mode>
+  </control>
+  <link>
+    <master>br0</master>
+    <port type="bridge">
+      <priority>9</priority>
+      <path-cost>2</path-cost>
+    </port>
+  </link>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>
+<interface origin="compat:suse:/tests/bridge3/netconfig/ifcfg-br0">
+  <name>en1</name>
+  <control>
+    <mode>hotplug</mode>
+  </control>
+  <link>
+    <master>br0</master>
+    <port type="bridge">
+      <priority>0</priority>
+    </port>
+  </link>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>

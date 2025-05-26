@@ -1,0 +1,65 @@
+<interface origin="compat:suse:/tests/bond_ieee802_3ad2/netconfig/ifcfg-bond0">
+  <name>bond0</name>
+  <control>
+    <mode>boot</mode>
+  </control>
+  <bond>
+    <mode>ieee802-3ad</mode>
+    <miimon>
+      <frequency>100</frequency>
+      <carrier-detect>netif</carrier-detect>
+    </miimon>
+    <xmit-hash-policy>layer23</xmit-hash-policy>
+    <address>3c:fd:fe:a5:be:cc</address>
+  </bond>
+  <link/>
+  <ipv4>
+    <enabled>true</enabled>
+  </ipv4>
+  <ipv4:static>
+    <address>
+      <local>10.161.72.11/24</local>
+    </address>
+  </ipv4:static>
+  <ipv6>
+    <enabled>true</enabled>
+    <privacy>prefer-public</privacy>
+  </ipv6>
+  <ipv6:static>
+    <address>
+      <local>2620:113:80c0:8200::11/64</local>
+    </address>
+  </ipv6:static>
+</interface>
+<interface origin="compat:suse:/tests/bond_ieee802_3ad2/netconfig/ifcfg-bond0">
+  <name>sfp1</name>
+  <control>
+    <mode>hotplug</mode>
+  </control>
+  <link>
+    <master>bond0</master>
+    <port type="bond"/>
+  </link>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>
+<interface origin="compat:suse:/tests/bond_ieee802_3ad2/netconfig/ifcfg-bond0">
+  <name>sfp2</name>
+  <control>
+    <mode>hotplug</mode>
+  </control>
+  <link>
+    <master>bond0</master>
+    <port type="bond"/>
+  </link>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>

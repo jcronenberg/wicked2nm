@@ -1,0 +1,9 @@
+STARTMODE=auto
+BOOTPROTO=dhcp
+BONDING_MASTER=yes
+BONDING_SLAVE_1=en0
+BONDING_SLAVE_2=en1
+BONDING_MODULE_OPTS='mode=active-backup miimon=100 primary=en0'
+LLADDR='02:00:33:44:55:11'
+FIREWALL=yes
+ZONE=public
