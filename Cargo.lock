@@ -20,7 +20,7 @@ checksum = "512761e0bb2578dd7380c6baaa0f4ce03e84f95e960231d1dec8bf4d7d6e2627"
 [[package]]
 name = "agama-network"
 version = "0.1.0"
-source = "git+https://github.com/agama-project/agama#26451bd0c69ecc7f86bae51c4141c30f96c3f6fe"
+source = "git+https://github.com/jcronenberg/agama?branch=dns_priority#2b516a8f9dea518b43418cc5d88174ca5481c691"
 dependencies = [
  "agama-utils",
  "anyhow",
@@ -46,7 +46,7 @@ dependencies = [
 [[package]]
 name = "agama-utils"
 version = "0.1.0"
-source = "git+https://github.com/agama-project/agama#26451bd0c69ecc7f86bae51c4141c30f96c3f6fe"
+source = "git+https://github.com/jcronenberg/agama?branch=dns_priority#2b516a8f9dea518b43418cc5d88174ca5481c691"
 dependencies = [
  "serde_json",
  "utoipa",

@@ -88,6 +88,6 @@ mod tests {
             assert_eq!(v.parent, "en0");
         }
 
-        assert_eq!(ifc.mac_address.to_string(), "02:11:22:33:44:55");
+        assert_eq!(ifc.custom_mac_address.to_string(), "02:11:22:33:44:55");
     }
 }

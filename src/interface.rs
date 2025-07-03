@@ -398,23 +398,23 @@ impl Interface {
         }
 
         if let Some(ethernet) = &self.ethernet {
-            connection.mac_address = MacAddress::try_from(&ethernet.address)?;
+            connection.custom_mac_address = MacAddress::try_from(&ethernet.address)?;
             connection.config = model::ConnectionConfig::Ethernet;
             connections.push(connection);
         } else if let Some(dummy) = &self.dummy {
-            connection.mac_address = MacAddress::try_from(&dummy.address)?;
+            connection.custom_mac_address = MacAddress::try_from(&dummy.address)?;
             connection.config = model::ConnectionConfig::Dummy;
             connections.push(connection);
         } else if let Some(bond) = &self.bond {
-            connection.mac_address = MacAddress::try_from(&bond.address)?;
+            connection.custom_mac_address = MacAddress::try_from(&bond.address)?;
             connection.config = bond.into();
             connections.push(connection);
         } else if let Some(vlan) = &self.vlan {
-            connection.mac_address = MacAddress::try_from(&vlan.address)?;
+            connection.custom_mac_address = MacAddress::try_from(&vlan.address)?;
             connection.config = vlan.into();
             connections.push(connection);
         } else if let Some(bridge) = &self.bridge {
-            connection.mac_address = MacAddress::try_from(&bridge.address)?;
+            connection.custom_mac_address = MacAddress::try_from(&bridge.address)?;
             connection.config = bridge.into();
             connections.push(connection);
         } else if let Some(wireless) = &self.wireless {
@@ -869,7 +869,7 @@ mod tests {
         let connection: &model::Connection =
             &dummy_interface.to_connection(&None).unwrap().connections[0];
         assert!(matches!(connection.config, model::ConnectionConfig::Dummy));
-        assert_eq!(connection.mac_address.to_string(), "12:34:56:78:9A:BC");
+        assert_eq!(connection.custom_mac_address.to_string(), "12:34:56:78:9A:BC");
 
         let dummy_interface = Interface {
             dummy: Some(Dummy {
@@ -882,7 +882,7 @@ mod tests {
             &dummy_interface.to_connection(&None).unwrap().connections[0];
         assert!(matches!(connection.config, model::ConnectionConfig::Dummy));
         assert_eq!(dummy_interface.dummy.unwrap().address, None);
-        assert!(matches!(connection.mac_address, MacAddress::Unset));
+        assert!(matches!(connection.custom_mac_address, MacAddress::Unset));
     }
 
     #[test]

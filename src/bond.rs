@@ -356,7 +356,10 @@ mod tests {
             connection.config,
             model::ConnectionConfig::Bond(_)
         ));
-        assert_eq!(connection.mac_address.to_string(), "02:11:22:33:44:55");
+        assert_eq!(
+            connection.custom_mac_address.to_string(),
+            "02:11:22:33:44:55"
+        );
 
         if let model::ConnectionConfig::Bond(bond) = &connection.config {
             assert_eq!(bond.mode, AgamaBondMode::LACP);
