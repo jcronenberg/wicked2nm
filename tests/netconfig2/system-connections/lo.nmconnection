@@ -1,6 +1,6 @@
 [connection]
 id=lo
-uuid=8711628a-f044-4516-a5b4-bb19f4f9f8fd
+uuid=e81cfda7-ecbe-4d04-b7bc-312933550318
 type=loopback
 interface-name=lo
 
@@ -13,7 +13,7 @@ interface-name=lo
 [ipv4]
 address1=127.0.0.1/8
 dns=192.168.0.10;192.168.1.10;
-dns-priority=1
+dns-priority=3
 dns-search=suse.de;suse.com;
 method=manual
 
@@ -21,7 +21,7 @@ method=manual
 addr-gen-mode=default
 address1=::1/128
 dns=2001:db8::10;
-dns-priority=1
+dns-priority=3
 dns-search=suse.de;suse.com;
 method=manual
 

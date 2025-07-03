@@ -869,7 +869,10 @@ mod tests {
         let connection: &model::Connection =
             &dummy_interface.to_connection(&None).unwrap().connections[0];
         assert!(matches!(connection.config, model::ConnectionConfig::Dummy));
-        assert_eq!(connection.custom_mac_address.to_string(), "12:34:56:78:9A:BC");
+        assert_eq!(
+            connection.custom_mac_address.to_string(),
+            "12:34:56:78:9A:BC"
+        );
 
         let dummy_interface = Interface {
             dummy: Some(Dummy {

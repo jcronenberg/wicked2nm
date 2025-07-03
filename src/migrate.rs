@@ -1,5 +1,5 @@
 use crate::interface::Interface;
-use crate::netconfig::Netconfig;
+use crate::netconfig::{apply_dns_policy, Netconfig};
 use crate::netconfig_dhcp::NetconfigDhcp;
 use crate::MIGRATION_SETTINGS;
 use agama_network::model::{Connection, GeneralState, IpConfig, MatchConfig, StateConfig};
@@ -135,15 +135,24 @@ pub async fn migrate(
                 }
             }
         };
-        if let Some(static_dns_searchlist) = netconfig.static_dns_searchlist {
-            loopback.ip_config.dns_searchlist = static_dns_searchlist;
-        }
-
-        for con in state.connections.iter_mut() {
-            con.ip_config.ignore_auto_dns = true;
+        if let Some(static_dns_searchlist) = &netconfig.static_dns_searchlist {
+            loopback.ip_config.dns_searchlist = static_dns_searchlist.clone();
         }
 
         state.add_connection(loopback)?;
+
+        apply_dns_policy(&netconfig, &mut state)?;
+
+        // When a connection didn't get a dns priority it means it wasn't matched by the netconfig policy,
+        // so ignore-auto-dns should be set to true.
+        for con in state.connections.iter_mut() {
+            if con.id != "lo"
+                && con.ip_config.dns_priority4.is_none()
+                && con.ip_config.dns_priority6.is_none()
+            {
+                con.ip_config.ignore_auto_dns = true;
+            }
+        }
     }
 
     nm.write(&state).await?;

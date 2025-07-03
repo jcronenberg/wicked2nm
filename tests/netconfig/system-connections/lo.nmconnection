@@ -1,6 +1,6 @@
 [connection]
 id=lo
-uuid=8711628a-f044-4516-a5b4-bb19f4f9f8fd
+uuid=e722f75b-6207-4339-ae65-2f40cd4569e8
 type=loopback
 interface-name=lo
 

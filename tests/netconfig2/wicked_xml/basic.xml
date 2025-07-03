@@ -1,0 +1,56 @@
+<interface origin="compat:suse:/etc/sysconfig/network/ifcfg-eth9">
+  <name>eth9</name>
+  <control>
+    <mode>boot</mode>
+  </control>
+  <firewall/>
+  <link/>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>
+<interface origin="compat:suse:/etc/sysconfig/network/ifcfg-test1">
+  <name>test1</name>
+  <control>
+    <mode>boot</mode>
+  </control>
+  <firewall/>
+  <link/>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>
+<interface origin="compat:suse:/etc/sysconfig/network/ifcfg-test12">
+  <name>test12</name>
+  <control>
+    <mode>boot</mode>
+  </control>
+  <firewall/>
+  <link/>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>
+<interface origin="compat:suse:/etc/sysconfig/network/ifcfg-test123">
+  <name>test123</name>
+  <control>
+    <mode>boot</mode>
+  </control>
+  <firewall/>
+  <link/>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>
