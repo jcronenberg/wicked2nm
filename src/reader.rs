@@ -117,7 +117,7 @@ pub fn read(paths: Vec<String>) -> Result<InterfacesResult, anyhow::Error> {
                 if !settings.continue_migration {
                     anyhow::bail!("{}, use the `--continue-migration` flag to ignore", msg);
                 };
-                log::warn!("{}", msg);
+                log::warn!("{msg}");
             }
         };
         match read_netconfig_dhcp(settings.netconfig_dhcp_path.clone()) {
@@ -130,7 +130,7 @@ pub fn read(paths: Vec<String>) -> Result<InterfacesResult, anyhow::Error> {
                 if !settings.continue_migration {
                     anyhow::bail!("{}, use the `--continue-migration` flag to ignore", msg);
                 };
-                log::warn!("{}", msg);
+                log::warn!("{msg}");
             }
         };
     }

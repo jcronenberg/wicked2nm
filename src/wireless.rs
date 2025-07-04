@@ -388,7 +388,7 @@ fn common_settings_to_config(
         match model::PairwiseAlgorithm::try_from(pairwise_cipher) {
             Ok(algo) => pairwise_algorithms.push(algo),
             Err(e) => {
-                log::info!("{}", e);
+                log::info!("{e}");
                 pairwise_algorithms = vec![];
                 break;
             }
@@ -401,7 +401,7 @@ fn common_settings_to_config(
         match model::GroupAlgorithm::try_from(group_cipher) {
             Ok(algo) => group_algorithms.push(algo),
             Err(e) => {
-                log::info!("{}", e);
+                log::info!("{e}");
                 group_algorithms = vec![];
                 break;
             }

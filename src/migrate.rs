@@ -23,7 +23,7 @@ fn update_parent_connection(
         {
             parent_uuid.insert(id, parent_con.uuid);
         } else {
-            log::warn!("Missing parent {} connection for {}", parent, id);
+            log::warn!("Missing parent {parent} connection for {id}");
             if !settings.continue_migration {
                 return Err(anyhow::anyhow!("Migration of {} failed because of warnings, use the `--continue-migration` flag to ignore", id));
             }
@@ -79,7 +79,7 @@ pub async fn migrate(
         let connection_result = interface.to_connection(&netconfig_dhcp)?;
         if !connection_result.warnings.is_empty() {
             for connection_error in &connection_result.warnings {
-                log::warn!("{}", connection_error);
+                log::warn!("{connection_error}");
             }
             if !settings.continue_migration {
                 return Err(anyhow::anyhow!(
@@ -107,7 +107,7 @@ pub async fn migrate(
 
     if settings.dry_run {
         for connection in state.connections {
-            log::debug!("{:#?}", connection);
+            log::debug!("{connection:#?}");
         }
         return Ok(());
     }
@@ -122,7 +122,7 @@ pub async fn migrate(
         loopback.ip_config.nameservers = match netconfig.static_dns_servers() {
             Ok(nameservers) => nameservers,
             Err(e) => {
-                let msg = format!("Error when parsing static DNS servers: {}", e);
+                let msg = format!("Error when parsing static DNS servers: {e}");
                 if !settings.continue_migration {
                     return Err(anyhow::anyhow!(
                         "{}, use the `--continue-migration` flag to ignore",
@@ -130,7 +130,7 @@ pub async fn migrate(
                     )
                     .into());
                 } else {
-                    log::warn!("{}", msg);
+                    log::warn!("{msg}");
                     vec![]
                 }
             }

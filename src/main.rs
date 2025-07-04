@@ -121,9 +121,9 @@ async fn run_command(cli: Cli) -> anyhow::Result<()> {
                 Format::PrettyJson => serde_json::to_string_pretty(&show_output)?,
                 Format::Yaml => serde_yaml::to_string(&show_output)?,
                 Format::Xml => quick_xml::se::to_string_with_root("wicked-config", &show_output)?,
-                Format::Text => format!("{:?}", show_output),
+                Format::Text => format!("{show_output:?}"),
             };
-            println!("{}", output);
+            println!("{output}");
             Ok(())
         }
         Commands::Migrate {
@@ -225,7 +225,7 @@ async fn main() -> CliResult {
     .unwrap();
 
     if let Err(error) = run_command(cli).await {
-        log::error!("{}", error);
+        log::error!("{error}");
         return CliResult::Error;
     }
 

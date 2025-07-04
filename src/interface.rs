@@ -425,7 +425,7 @@ impl Interface {
                 for (i, network) in networks.iter().enumerate() {
                     let mut wireless_connection = connection.clone();
                     if networks.len() > 1 {
-                        wireless_connection.id.push_str(&format!("-{}", i));
+                        wireless_connection.id.push_str(&format!("-{i}"));
                     }
                     wireless_connection.config = network.try_into()?;
                     if let Some(wpa_eap) = &network.wpa_eap {
@@ -908,17 +908,17 @@ mod tests {
         let mut ifc = Interface::default();
 
         let con: model::Connection = ifc.to_connection(&None).unwrap().connections[0].to_owned();
-        assert_eq!(con.autoconnect, false);
+        assert!(!con.autoconnect);
 
         ifc.control.mode = ControlMode::Boot;
         let con: model::Connection = ifc.to_connection(&None).unwrap().connections[0].to_owned();
-        assert_eq!(con.autoconnect, true);
+        assert!(con.autoconnect);
     }
 
     #[test]
     fn test_ignored_default() {
         let ifc = Interface::default();
-        assert!(check_ignored(&ifc).len() == 0);
+        assert!(check_ignored(&ifc).is_empty());
 
         let ifc = Interface {
             ipv4_dhcp: Some(Ipv4Dhcp {
