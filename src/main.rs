@@ -26,7 +26,7 @@ use tokio::sync::OnceCell;
 use crate::interface::Interface;
 use crate::netconfig::Netconfig;
 
-#[derive(Parser, Clone)]
+#[derive(Parser, Clone, Debug)]
 #[command(name = "wicked2nm", version, about, long_about = None)]
 struct Cli {
     #[clap(flatten)]
@@ -68,7 +68,7 @@ struct GlobalOpts {
     pub disable_hints: bool,
 }
 
-#[derive(Subcommand, Clone)]
+#[derive(Subcommand, Clone, Debug)]
 pub enum Commands {
     /// Shows the current xml wicked configuration
     Show {
@@ -78,12 +78,14 @@ pub enum Commands {
 
         /// Wicked XML files or directories where the wicked xml configs are located.
         /// Can also be "-" to read from stdin
+        #[arg(required = true)]
         paths: Vec<String>,
     },
     /// Migrate wicked state at path
     Migrate {
         /// Wicked XML files or directories where the wicked xml configs are located.
         /// Can also be "-" to read from stdin
+        #[arg(required = true)]
         paths: Vec<String>,
 
         /// Continue migration if warnings are encountered
@@ -101,7 +103,7 @@ pub enum Commands {
 }
 
 /// Supported output formats
-#[derive(clap::ValueEnum, Clone)]
+#[derive(clap::ValueEnum, Clone, Debug)]
 pub enum Format {
     Json,
     PrettyJson,
@@ -286,4 +288,36 @@ async fn main() -> CliResult {
     }
 
     CliResult::Ok
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use clap::error::ErrorKind;
+
+    #[test]
+    fn test_show_without_paths_fails() {
+        let result = Cli::try_parse_from(&["wicked2nm", "show"]);
+        assert!(result.is_err());
+        assert_eq!(
+            result.unwrap_err().kind(),
+            ErrorKind::MissingRequiredArgument
+        );
+    }
+
+    #[test]
+    fn test_migrate_without_paths_fails() {
+        let result = Cli::try_parse_from(&["wicked2nm", "migrate"]);
+        assert!(result.is_err());
+        assert_eq!(
+            result.unwrap_err().kind(),
+            ErrorKind::MissingRequiredArgument
+        );
+    }
+
+    #[test]
+    fn test_show_with_paths_passes() {
+        let result = Cli::try_parse_from(&["wicked2nm", "show", "some_file.xml"]);
+        assert!(result.is_ok());
+    }
 }
