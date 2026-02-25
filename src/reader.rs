@@ -3,16 +3,53 @@ use crate::netconfig::{read_netconfig, Netconfig};
 use crate::netconfig_dhcp::{read_netconfig_dhcp, NetconfigDhcp};
 use crate::MIGRATION_SETTINGS;
 
+use quick_xml::events::Event;
+use quick_xml::Reader;
 use regex::Regex;
 use std::fs::{self, read_dir};
 use std::io::{self};
 use std::path::{Path, PathBuf};
 
+#[derive(Debug)]
 pub struct InterfacesResult {
     pub interfaces: Vec<Interface>,
     pub netconfig: Option<Netconfig>,
     pub netconfig_dhcp: Option<NetconfigDhcp>,
     pub has_warnings: bool,
+}
+
+fn validate_xml(xml: &str) -> Result<(), anyhow::Error> {
+    let mut reader = Reader::from_str(xml);
+    reader.config_mut().check_end_names = true;
+    let mut root_found = false;
+
+    loop {
+        match reader.read_event() {
+            Ok(Event::Eof) => break,
+            Ok(Event::Start(e)) => {
+                let name = e.local_name();
+                let name_bytes = name.as_ref();
+                if name_bytes != b"interface" {
+                    anyhow::bail!(
+                        "The provided file is not a valid Wicked XML configuration (unexpected element: <{}>).",
+                        String::from_utf8_lossy(name_bytes)
+                    );
+                }
+                root_found = true;
+                break;
+            }
+            Ok(_) => (),
+            Err(e) => {
+                anyhow::bail!("Invalid XML configuration: {}", e);
+            }
+        }
+    }
+
+    if !root_found {
+        anyhow::bail!("The provided file is not a valid Wicked XML configuration (no <interface> element found).");
+    }
+
+    Ok(())
 }
 
 // Define a list of fields that are ignored if present.
@@ -43,6 +80,7 @@ pub fn read_xml_file(path: PathBuf) -> Result<InterfacesResult, anyhow::Error> {
 }
 
 pub fn deserialize_xml(contents: String) -> Result<InterfacesResult, anyhow::Error> {
+    validate_xml(contents.as_str())?;
     let replaced_string = replace_colons(contents.as_str());
     let deserializer = &mut quick_xml::de::Deserializer::from_str(replaced_string.as_str());
     let mut unhandled_fields = vec![];
@@ -364,6 +402,39 @@ mod tests {
             "##;
         let err = deserialize_xml(xml.to_string());
         assert!(err.is_err());
+    }
+
+    #[test]
+    fn test_non_xml() {
+        let content = "This is just some random text, not XML at all.";
+        let err = deserialize_xml(content.to_string());
+        assert!(err.is_err());
+        assert!(err
+            .unwrap_err()
+            .to_string()
+            .contains("no <interface> element found"));
+    }
+
+    #[test]
+    fn test_empty_xml() {
+        let content = "  ";
+        let err = deserialize_xml(content.to_string());
+        assert!(err.is_err());
+        assert!(err
+            .unwrap_err()
+            .to_string()
+            .contains("no <interface> element found"));
+    }
+
+    #[test]
+    fn test_unexpected_root() {
+        let content = "<unexpected><foo>bar</foo></unexpected>";
+        let err = deserialize_xml(content.to_string());
+        assert!(err.is_err());
+        assert!(err
+            .unwrap_err()
+            .to_string()
+            .contains("unexpected element: <unexpected>"));
     }
 
     #[test]

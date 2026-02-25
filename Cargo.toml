@@ -9,7 +9,7 @@ edition = "2021"
 serde = { version = "1.0.152", features = ["derive"] }
 serde_json = "1.0.91"
 serde_yaml = "0.9.17"
-quick-xml = { version = "0.28.2", features = ["serialize"] }
+quick-xml = { version = "0.39.2", features = ["serialize"] }
 agama-network = { git = "https://github.com/agama-project/agama" }
 regex = "1.9.5"
 cidr = { version = "0.3.1", features = ["serde"] }
