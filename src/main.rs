@@ -7,6 +7,7 @@ mod netconfig;
 mod netconfig_dhcp;
 mod ovs;
 mod reader;
+mod team;
 mod tuntap;
 mod vlan;
 mod wireless;

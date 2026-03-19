@@ -1,0 +1,5 @@
+STARTMODE=hotplug
+BOOTPROTO=none
+TEAM_MASTER=team0
+# Optional priority if we want to test it via ifcfg
+# TEAM_PORT_CONFIG='{"prio": 10}'

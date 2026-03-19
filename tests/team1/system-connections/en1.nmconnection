@@ -1,0 +1,10 @@
+[connection]
+id=en1
+type=ethernet
+controller=team0
+interface-name=en1
+port-type=bond
+
+[ethernet]
+
+[match]

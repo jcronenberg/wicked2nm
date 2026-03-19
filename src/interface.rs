@@ -5,6 +5,7 @@ use crate::netconfig_dhcp::{HostnameOption, NetconfigDhcp};
 use crate::ovs::OvsBridge;
 use crate::tuntap::Tap;
 use crate::tuntap::Tun;
+use crate::team::Team;
 use crate::vlan::Vlan;
 use crate::wireless::Wireless;
 use crate::MIGRATION_SETTINGS;
@@ -44,6 +45,7 @@ pub struct Interface {
     pub dummy: Option<Dummy>,
     pub ethernet: Option<Ethernet>,
     pub bond: Option<Bond>,
+    pub team: Option<Team>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub wireless: Option<Wireless>,
     #[serde(rename = "@origin")]
@@ -92,6 +94,7 @@ pub enum LinkPortType {
     Bridge,
     Bond,
     OvsBridge,
+    Team,
 }
 
 fn default_true() -> bool {
@@ -393,6 +396,7 @@ impl From<&LinkPort> for model::PortConfig {
             }),
             LinkPortType::Bond => model::PortConfig::None,
             LinkPortType::OvsBridge => model::PortConfig::OvsBridge(model::OvsBridgePortConfig {}),
+            LinkPortType::Team => model::PortConfig::None,
         }
     }
 }
@@ -463,6 +467,9 @@ impl Interface {
         } else if let Some(bond) = &self.bond {
             connection.custom_mac_address = MacAddress::try_from(&bond.address)?;
             connection.config = bond.into();
+            connection_result.connections.push(connection);
+        } else if let Some(team) = &self.team {
+            connection.config = team.into();
             connection_result.connections.push(connection);
         } else if let Some(vlan) = &self.vlan {
             connection.custom_mac_address = MacAddress::try_from(&vlan.address)?;

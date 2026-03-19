@@ -1,0 +1,40 @@
+<interface origin="compat:suse:/etc/sysconfig/network/ifcfg-team0">
+  <name>team0</name>
+  <control>
+    <mode>boot</mode>
+  </control>
+  <firewall/>
+  <team>
+    <runner name="lacp">
+      <active>false</active>
+      <fast_rate>false</fast_rate>
+      <sys_prio>255</sys_prio>
+      <min_ports>0</min_ports>
+      <select_policy>lacp_prio</select_policy>
+      <tx_hash>eth,vlan,ipv4,ipv6</tx_hash>
+      <tx_balancer>
+        <name>basic</name>
+        <balancing_interval>100</balancing_interval>
+      </tx_balancer>
+    </runner>
+    <link_watch>
+      <watch name="ethtool">
+        <delay_up>10</delay_up>
+        <delay_down>10</delay_down>
+      </watch>
+    </link_watch>
+  </team>
+  <link/>
+  <ipv4>
+    <enabled>true</enabled>
+  </ipv4>
+  <ipv4:static>
+    <address>
+      <local>192.168.110.30/24</local>
+    </address>
+  </ipv4:static>
+  <ipv6>
+    <enabled>true</enabled>
+    <privacy>prefer-public</privacy>
+  </ipv6>
+</interface>

@@ -1,0 +1,70 @@
+<interface origin="compat:suse:/tests/team1/netconfig/ifcfg-en1">
+  <name>en1</name>
+  <control>
+    <mode>hotplug</mode>
+  </control>
+  <link>
+    <master>team0</master>
+    <port type="team"/>
+  </link>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>
+<interface origin="compat:suse:/tests/team1/netconfig/ifcfg-team0">
+  <name>team0</name>
+  <control>
+    <mode>boot</mode>
+  </control>
+  <team>
+    <runner name="lacp">
+      <active>false</active>
+      <fast_rate>true</fast_rate>
+      <sys_prio>100</sys_prio>
+      <min_ports>2</min_ports>
+      <select_policy>bandwidth</select_policy>
+      <tx_balancer>
+        <name>basic</name>
+        <balancing_interval>50</balancing_interval>
+      </tx_balancer>
+    </runner>
+    <link_watch>
+      <watch name="ethtool">
+        <delay_up>10</delay_up>
+        <delay_down>20</delay_down>
+      </watch>
+    </link_watch>
+  </team>
+  <link/>
+  <ipv4>
+    <enabled>true</enabled>
+  </ipv4>
+  <ipv4:static>
+    <address>
+      <local>192.168.100.1/24</local>
+    </address>
+  </ipv4:static>
+  <ipv6>
+    <enabled>true</enabled>
+    <privacy>prefer-public</privacy>
+  </ipv6>
+</interface>
+<interface origin="compat:suse:/tests/team1/netconfig/ifcfg-en0">
+  <name>en0</name>
+  <control>
+    <mode>hotplug</mode>
+  </control>
+  <link>
+    <master>team0</master>
+    <port type="team"/>
+  </link>
+  <ipv4>
+    <enabled>false</enabled>
+  </ipv4>
+  <ipv6>
+    <enabled>false</enabled>
+  </ipv6>
+</interface>

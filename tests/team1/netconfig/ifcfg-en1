@@ -1,0 +1,3 @@
+STARTMODE=hotplug
+BOOTPROTO=none
+TEAM_MASTER=team0
