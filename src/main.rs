@@ -107,7 +107,6 @@ pub enum Commands {
 pub enum Format {
     Json,
     PrettyJson,
-    Yaml,
     Xml,
     Text,
 }
@@ -206,7 +205,6 @@ fn show_command(paths: Vec<String>, format: Format) -> anyhow::Result<()> {
     let output = match format {
         Format::Json => serde_json::to_string(&show_output)?,
         Format::PrettyJson => serde_json::to_string_pretty(&show_output)?,
-        Format::Yaml => serde_yaml::to_string(&show_output)?,
         Format::Xml => quick_xml::se::to_string_with_root("wicked-config", &show_output)?,
         Format::Text => format!("{show_output:?}"),
     };
